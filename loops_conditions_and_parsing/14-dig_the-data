@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 #w
-awk '
-{
-    ip = $1;
-    status = $9;
-    count[ip " " status]++;
-}
-END {
-    for (key in count)
-        print count[key], key;
-}
-' access.log | sort -rn
+awk '{ count[$1, $9]++ }
+     END {
+       for (key in count) {
+         split(key, arr, SUBSEP)
+         print count[key], arr[1], arr[2]
+       }
+     }' apache-access.log | sort -nr
