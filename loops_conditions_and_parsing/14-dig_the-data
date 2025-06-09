@@ -1,3 +1,17 @@
 #!/usr/bin/env bash
 #w
-awk 'NF >= 9 {count[$1" "$9]++} END {for (entry in count) print count[entry], entry}' "${1:-access.log}" | sort -nr
+awk '
+{
+    # $1 = IP, $9 = HTTP status code in common log format
+    counts[$1, $9]++
+}
+END {
+    for (key in counts) {
+        # split key into ip and code
+        split(key, arr, SUBSEP)
+        ip = arr[1]
+        code = arr[2]
+        print counts[key], ip, code
+    }
+}
+' access.log | sort -rn
