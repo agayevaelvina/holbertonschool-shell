@@ -1,21 +1,7 @@
 #!/usr/bin/env bash
 #w
-awk '
-{
-  count[$1, $9]++
-}
-END {
-  for (key in count) {
-    print count[key], key
-  }
-}
-' access.log | \
-awk '
-{
-  split($2, a, SUBSEP)
-  print $1, a[1], a[2]
-}
-' | sort -nr
-
+while IFS=':' read -r username password uid gid info home shell; do
+    echo "The user $username is part of the $gid gang, lives in $home and rides $shell. $uid's place is protected by the passcode $password, more info about the user here: $info"
+done < /etc/passwd
 
 
