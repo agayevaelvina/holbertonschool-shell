@@ -1,9 +1,3 @@
 #!/usr/bin/env bash
 #w
-awk 'NF >= 9 {count[$1" "$9]++} END {
-    if (length(count) == 0) {
-        print "No valid entries found."
-    } else {
-        for (entry in count) print count[entry], entry
-    }
-}' "${1:-access.log}" | sort -nr
+awk 'NF >= 9 {count[$1" "$9]++} END {for (entry in count) print count[entry], entry}' "${1:-access.log}" | sort -nr
