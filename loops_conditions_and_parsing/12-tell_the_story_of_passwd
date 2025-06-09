@@ -1,7 +1,21 @@
 #!/usr/bin/env bash
 #w
-while IFS=: read -r username _ userid _ _ home _; do
-    echo "$username:$userid:$home"
-done < /etc/passwd
+awk '
+{
+  count[$1, $9]++
+}
+END {
+  for (key in count) {
+    print count[key], key
+  }
+}
+' access.log | \
+awk '
+{
+  split($2, a, SUBSEP)
+  print $1, a[1], a[2]
+}
+' | sort -nr
+
 
 
