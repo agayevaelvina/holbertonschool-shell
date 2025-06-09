@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#w
+awk '{ count[$1,$9]++ } END { for (key in count) print count[key], key }' access.log | \
+awk '{
+    split($2, arr, SUBSEP);
+    print $1, arr[1], arr[2]
+}' | sort -nr
+
