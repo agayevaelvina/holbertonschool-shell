@@ -1,12 +1,3 @@
 #!/usr/bin/env bash
 #w
-trap 'echo "Terminated"' TERM
-
-
-while true; do
-
-  echo "To infinity and beyond"
-
-  sleep 0.1
-
-done
+pkill -x to_infinity_and_beyond
