@@ -1,17 +1,4 @@
 #!/usr/bin/env bash
 #w
-awk '
-{
-    # $1 = IP, $9 = HTTP status code in common log format
-    counts[$1, $9]++
-}
-END {
-    for (key in counts) {
-        # split key into ip and code
-        split(key, arr, SUBSEP)
-        ip = arr[1]
-        code = arr[2]
-        print counts[key], ip, code
-    }
-}
-' access.log | sort -rn
+awk '{print $1, $9}' access.log | sort | uniq -c | sort -rn | awk '{print $1, $2, $3}'
+
