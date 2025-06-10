@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 #w
-for pid in $(ps -eo pid=,comm= | awk '$2=="to_infinity_and_beyond" {print $1}'); do
+for pid in $(ps -eo pid=,comm= | awk '$2=="4-to_infinity_and_beyond" {print $1}'); do
   kill "$pid"
 done
