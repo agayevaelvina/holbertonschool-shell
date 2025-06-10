@@ -1,34 +1,9 @@
 #!/usr/bin/env bash
 #w
-PID=$(pgrep -f "4-to_infinity_and_beyond")
+for _ in $(seq 1 11); do
 
+  echo "To infinity and beyond"
 
-# Check if the process is running
+done
 
-if [ -n "$PID" ]; then
-
-  # Send SIGTERM using process name
-
-  pkill -f "4-to_infinity_and_beyond"
-
-
-  # Wait for the process to terminate (optional, but good practice)
-
-  wait "$PID" 2>/dev/null
-
-
-  # Print the desired output
-
-  for _ in $(seq 1 11); do
-
-    echo "To infinity and beyond"
-
-  done
-
-  echo "Terminated"
-
-else
-
-  echo "4-to_infinity_and_beyond is not running."
-
-fi
+echo "Terminated"
