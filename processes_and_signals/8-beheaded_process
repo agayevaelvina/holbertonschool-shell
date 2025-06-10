@@ -1,3 +1,19 @@
 #!/usr/bin/env bash
 #w
-pkill -TERM "7-highlander" || pkill -KILL "7-highlander"
+process_name="7-highlander"
+
+
+# Check if the process is running using pgrep.
+
+if pgrep "$process_name" > /dev/null; then
+
+  echo "The process '$process_name' is running."
+
+else
+
+  echo "The process '$process_name' is not running."
+
+fi
+
+
+exit 0
