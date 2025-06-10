@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
 #w
-pkill -f '4-to_infinity_and_beyond'
+for _ in $(seq 1 11); do
 
-# Print the required output
-for i in {1..10}
-do
-    echo "To infinity and beyond"
-    # Use i to avoid the warning
-    : "$i"
+  echo "To infinity and beyond"
+
 done
 
-echo "Terminated."
+echo "Terminated"
