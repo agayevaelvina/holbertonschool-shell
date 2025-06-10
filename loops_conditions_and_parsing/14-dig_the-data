@@ -1,11 +1,17 @@
 #!/usr/bin/env bash
 #w
 awk '
-  $0 ~ /^[0-9.]+/ {
-    ip = $1
-    status = $9
-    if (status ~ /^[0-9]{3}$/) {
-      print ip, status
-    }
+{
+  if (match($0, /^([0-9.]+) /, ip_match)) {
+    ip = ip_match[1]
+  } else {
+    next
   }
+  if (match($0, /"[^"]*" ([0-9]{3})/, status_match)) {
+    status = status_match[1]
+  } else {
+    next
+  }
+  print ip, status
+}
 ' access.log | sort | uniq -c | sort -rn | awk '{print $1, $2, $3}'
