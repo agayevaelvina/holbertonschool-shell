@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #w
-echo "This script does nothing to the 7-highlander process."
+echo "pkill -TERM \"7-highlander\" || pkill -KILL \"7-highlander\""
 
 
 exit 0
