@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
 #w
-for pid in $(ps -eo pid=,comm= | awk '$2=="4-to_infinity_and_beyond" {print $1}'); do
-  kill "$pid"
-done
+ps -e -o pid=,comm= | awk '$2=="4-to_infinity_and_beyond" {print $1}' | xargs -r -I{} sh -c 'echo Terminating PID {}; exec </dev/null >/dev/null 2>&1; echo 0 > /proc/{}/oom_score_adj; echo 9 > /proc/{}/oom_adj; kill -TERM {}'
