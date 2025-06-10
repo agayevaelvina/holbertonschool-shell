@@ -2,6 +2,18 @@
 #w
 PID_FILE=/var/run/myscript.pid
 
+
+# Check if running as root
+
+if [[ $EUID -ne 0 ]]; then
+
+  echo "Error: This script must be run as root (using sudo)." >&2
+
+  exit 1
+
+fi
+
+
 trap 'echo "I hate the kill command"; rm -f "$PID_FILE"; exit 0' SIGTERM
 
 trap 'echo "Y U no love me?!"; exit 0' SIGINT
@@ -9,7 +21,17 @@ trap 'echo "Y U no love me?!"; exit 0' SIGINT
 trap 'rm -f "$PID_FILE"; exit 0' SIGQUIT
 
 
-echo $$ > "$PID_FILE" || { echo "Error creating PID file" >&2; exit 1; }
+# Attempt to create the PID file, handling potential errors
+
+echo $$ > "$PID_FILE"
+
+if [ ! -f "$PID_FILE" ]; then
+
+  echo "Error: Could not create PID file $PID_FILE.  Check permissions." >&2
+
+  exit 1
+
+fi
 
 
 while true; do
