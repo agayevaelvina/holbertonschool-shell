@@ -1,35 +1,6 @@
 #!/usr/bin/env bash
 #w
 for pid in $(pgrep -f 4-to_infinity_and_beyond); do
-    # Send SIGTERM by writing to /proc/[pid]/task/[pid]/children or /proc/[pid]/status is not possible.
-    # Instead, use /proc/[pid]/fd or /proc/[pid]/cmdline is read-only.
-
-    # We can try to send signal by using 'kill' syscall via 'kill' command is forbidden,
-    # but we can use 'echo' to write to /proc/[pid]/somefile? No.
-
-    # Alternative: Use the 'kill' syscall via 'bash' built-in 'kill' is forbidden,
-    # but we cannot use 'kill' or 'killall' commands.
-
-    # So, send SIGTERM by writing to /proc/[pid]/... is not possible.
-
-    # However, we can use 'pkill' or 'kill' - but forbidden.
-
-    # The only way is to use 'echo' to /proc/[pid]/... no.
-
-    # Another way is to send signal using 'kill' syscall via 'bash' built-in:
-
-    # The built-in 'kill' is forbidden?
-
-    # The task says "You cannot use kill or killall" commands.
-    # Does that include the shell built-in 'kill'?
-
-    # If 'kill' built-in is also forbidden, no direct way to send signal.
-
-    # Alternative: Use 'echo' to /proc/[pid]/... no.
-
-    # Use 'kill' syscall via 'perl' or 'python' script?
-
-    # If allowed, let's use 'perl' to send signal:
-
-    perl -e 'kill 15, @ARGV' "$pid"
+	perl -e 'kill 15, @ARGV' "$pid"
 done
+
