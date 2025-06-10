@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 #w
-pstree -p -u
+ps -eo user,pid,%cpu,%mem,vsz,rss,tty,stat,start,time,command --forest
