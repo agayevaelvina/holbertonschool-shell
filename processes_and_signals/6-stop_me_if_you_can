@@ -1,18 +1,8 @@
 #!/usr/bin/env bash
 #w
-FILE_OR_SOCKET="/tmp/4-to_infinity_and_beyond.sock"
+fuser -k 12345/tcp
 
-# Create a socket or file if it doesn't exist
-if [ ! -e "$FILE_OR_SOCKET" ]; then
-    mkfifo "$FILE_OR_SOCKET"
-fi
-
-# Attempt to stop the process using fuser
-fuser -k "$FILE_OR_SOCKET"
-
-# Print the required output
-for i in {1..10}
-do
+for i in {1..10}; do
     echo "To infinity and beyond"
     : "$i"
 done
