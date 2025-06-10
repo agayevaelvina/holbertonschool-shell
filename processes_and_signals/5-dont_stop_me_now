@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+#w
+pids=$(pgrep -f 4-to_infinity_and_beyond)
+if [ -n "$pids" ]; then
+  # Use an array to safely handle multiple PIDs and avoid word splitting or globbing
+  read -r -a pid_array <<< "$pids"
+  kill "${pid_array[@]}"
+fi
