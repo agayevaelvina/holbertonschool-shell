@@ -2,11 +2,19 @@
 # Find the process ID of 7-highlander
 PID=$(pgrep -f "7-highlander")
 
+
 # Check if the process is running
+
 if [ -n "$PID" ]; then
+
   # Kill the process
+
   kill "$PID"
+
   echo "Stopped 7-highlander (PID: $PID)"
+
 else
+
   echo "7-highlander is not running."
+
 fi
