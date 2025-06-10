@@ -2,24 +2,20 @@
 #w
 awk '
 {
-  # Extract IPv4 or IPv6 address at start of line (IPv6 has colons, IPv4 dots)
-  if (match($0, /^(([0-9]{1,3}\.){3}[0-9]{1,3}|([0-9a-fA-F:]+)) /, ip_match)) {
-    ip = ip_match[1]
-  } else {
-    next
+  ip=""; status="";
+  # Look for IP-like string anywhere in the line (IPv4)
+  for(i=1;i<=NF;i++) {
+    if ($i ~ /^[0-9]{1,3}(\.[0-9]{1,3}){3}$/) {
+      ip=$i; break;
+    }
   }
-  
-  # Extract status code: 3-digit number after quoted request ("...")
-  if (match($0, /"[^"]*" ([0-9]{3})/, status_match)) {
-    status = status_match[1]
-  } else {
-    next
+  # Look for status code: any 3-digit number (likely 100-599)
+  for(i=1;i<=NF;i++) {
+    if ($i ~ /^[1-5][0-9][0-9]$/) {
+      status=$i; break;
+    }
   }
-  
-  # Print only if both IP and status code found
-  if (ip != "" && status != "") {
-    print ip, status
-  }
+  if(ip != "" && status != "") print ip, status;
 }
 ' apache-access.log | sort | uniq -c | sort -rn | awk '{print $1, $2, $3}'
 
