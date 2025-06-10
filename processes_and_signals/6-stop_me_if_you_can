@@ -1,69 +1,12 @@
 #!/usr/bin/env bash
 #w
-process_name="4-to_infinity_and_beyond"
+trap 'echo "Terminated"' TERM
 
 
-# Find the PID of the process using pgrep.
+while true; do
 
-pid=$(pgrep "$process_name")
+  echo "To infinity and beyond"
 
+  sleep 0.1
 
-# Check if the process is running.
-
-if [ -n "$pid" ]; then
-
-  echo "Process '$process_name' found with PID: $pid"
-
-
-  # Send a SIGTERM signal to the process using the kill command.
-
-  # We avoid using 'kill' directly by using 'pkill' with the -SIGNAL option.
-
-  pkill -TERM -f "$process_name"
-
-
-  # Wait for a few seconds to allow the process to terminate gracefully.
-
-  sleep 5
-
-
-  # Check if the process is still running.
-
-  if pgrep "$process_name" > /dev/null; then
-
-    echo "Process '$process_name' did not terminate gracefully. Sending SIGKILL."
-
-
-    # If it's still running, send a SIGKILL signal (forceful termination).
-
-    pkill -KILL -f "$process_name"
-
-
-    # Final check to ensure the process is terminated.
-
-    if pgrep "$process_name" > /dev/null; then
-
-      echo "Failed to terminate process '$process_name'."
-
-      exit 1
-
-    else
-
-      echo "Process '$process_name' terminated forcefully."
-
-    fi
-
-  else
-
-    echo "Process '$process_name' terminated gracefully."
-
-  fi
-
-else
-
-  echo "Process '$process_name' not found."
-
-fi
-
-
-exit 0
+done
