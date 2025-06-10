@@ -1,6 +1,28 @@
 #!/usr/bin/env bash
 #w
-echo "This script does nothing to the 7-highlander process."
+process_name="7-highlander"
+
+
+# Use pgrep to find the process ID.  pgrep is more robust than ps | grep.
+
+pid=$(pgrep "$process_name")
+
+
+# Check if the process was found.
+
+if [ -n "$pid" ]; then
+
+  # Kill the process.
+
+  kill "$pid"
+
+  echo "Killed"
+
+else
+
+  echo "Process '$process_name' not found."
+
+fi
 
 
 exit 0
