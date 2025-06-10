@@ -1,4 +1,11 @@
 #!/usr/bin/env bash
 #w
-awk '{print $1, $9}' access.log | sort | uniq -c | sort -rn | awk '{print $1, $2, $3}'
-
+awk '
+  $0 ~ /^[0-9.]+/ {
+    ip = $1
+    status = $9
+    if (status ~ /^[0-9]{3}$/) {
+      print ip, status
+    }
+  }
+' access.log | sort | uniq -c | sort -rn | awk '{print $1, $2, $3}'
