@@ -5,4 +5,6 @@ trap 'echo "I am invincible!!!"; exit 0' SIGTERM
 while true; do
   echo "To infinity and beyond indefinitely"
   sleep 2
+  # Flush the output buffer
+  stdbuf -o0 cat
 done
