@@ -1,3 +1,4 @@
 #!/usr/bin/env bash
 #w
-pstree -ap
+ps -auxf
+exit 0
