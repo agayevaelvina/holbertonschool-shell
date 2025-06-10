@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#w
+# Check if the process name contains "bash"
 for pid in /proc/[0-9]*; do
     pname=$(cat "$pid/comm" 2>/dev/null)
     [[ $pname == *bash* ]] && echo "$(basename "$pid") $pname"
